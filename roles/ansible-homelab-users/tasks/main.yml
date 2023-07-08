@@ -1,0 +1,15 @@
+---
+- name: Create ansible-nas group
+  ansible.builtin.group:
+    name: ansible-homelab
+    state: present
+
+- name: Create ansible-homelab user
+  ansible.builtin.user:
+    name: ansible-homelab
+    state: present
+    system: yes
+    update_password: on_create
+    create_home: no
+    group: ansible-homelab
+    shell: /usr/sbin/nologin

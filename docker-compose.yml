@@ -1,0 +1,141 @@
+version: "2"
+services:
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - TZ=America/Edmonton
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_NOTIFICATIONS=email
+      - WATCHTOWER_NOTIFICATION_EMAIL_FROM=bakbukdibbuk@gmail.com
+      - WATCHTOWER_NOTIFICATION_EMAIL_TO=hayatzeev@gmail.com
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER=smtp.gmail.com
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT=587
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER=bakbukdibbuk@gmail.com
+      - WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD=qkjtcfiagauouikn
+      - WATCHTOWER_SCHEDULE= 0	0	*	*	*	*
+    restart: unless-stopped
+
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /opt/homeassistant/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host
+
+  plex:
+    image: plexinc/pms-docker:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+    volumes:
+      - /home/zeev/media-server/docker-services/plex/config:/config
+      - /home/zeev/media-server:/media
+    ports:
+      - 32400:32400
+    restart: unless-stopped
+
+  wireguard:
+    container_name: wireguard
+    image: linuxserver/wireguard:latest
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.src_valid_mark=1
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Edmonton
+    ports:
+      - "9091:9091/tcp"
+    volumes:
+      - /home/zeev/media-server/docker-services/wireguard/wg0.conf:/config/wg0.conf
+      - /lib/modules:/lib/modules
+    restart: unless-stopped
+
+  transmission:
+    container_name: transmission
+    image: linuxserver/transmission:latest
+    network_mode: "service:wireguard"
+    depends_on:
+      - wireguard
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Edmonton
+      - WHITELIST=192.168.1.*,127.0.0.1
+    volumes:
+      - '/home/zeev/media-server/downloads:/downloads'
+      - '/home/zeev/media-server/docker-services/transmission/config:/config'
+      - '/home/zeev/media-server/watch:/watch'
+    restart: unless-stopped
+
+
+  torrservermatrix:
+    image: ghcr.io/yourok/torrserver:latest
+    container_name: torrservermatrix
+    hostname: torrservermatrix
+    volumes:
+      - /home/zeev/media-server/docker-services/torrservermatrix:/torrserver/db
+    ports:
+      - 8090:8090
+    restart: unless-stopped
+
+  dozzle:
+    container_name: dozzle
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 9999:8080
+    restart: unless-stopped
+
+  heimdall:
+    image: lscr.io/linuxserver/heimdall:latest
+    container_name: heimdall
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Edmonton
+    volumes:
+      - /home/zeev/media-server/docker-services/heimdall/config:/config
+    ports:
+      - 80:80
+      - 443:443
+    restart: unless-stopped
+  
+  komga:
+        container_name: komga
+        ports:
+            - '8786:8080'
+        environment:
+            - PUID=1026
+            - PGID=100
+        volumes:
+            - '/home/zeev/media-server/docker-services/komga:/config'
+            - '/home/zeev/media-server/docker-services/komga/comic:/data'
+        restart: unless-stopped
+        image: gotson/komga
+
+  ps3netsrv:
+    image: shawly/ps3netsrv
+    container_name: ps3netsrv
+    environment:
+      - TZ:America/Edmonton
+      - PUID=38008
+      - PGID=38008
+    ports:
+      - '38008:38008'
+    volumes:
+      - '/home/zeev/media-server/docker-services/ps3games:/games:rw'
+    restart: unless-stopped

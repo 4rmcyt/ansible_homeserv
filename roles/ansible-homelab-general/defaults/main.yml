@@ -1,0 +1,27 @@
+---
+# Sets the hostname of your Ansible NAS
+ansible_nas_hostname: ansible-homelab
+
+# Update all apt packages when playbook is run
+keep_packages_updated: true
+
+# Extra packages to install
+ansible_nas_extra_packages:
+  - smartmontools
+  - htop
+  - zfsutils-linux
+  - unzip
+  - lm-sensors
+  - ctop
+  - mc
+  - smartmontools
+  - ethtool
+  - wget
+  - rsync
+  - net-tools
+  - git
+  - debian-goodies
+
+# Sets the timezone for your Server
+# You can find a list here https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+ansible_nas_timezone: America/Edmonton

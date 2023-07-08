@@ -1,0 +1,32 @@
+---
+# portainer_enabled: false
+# portainer_available_externally: false
+
+# # directories
+# portainer_data_directory: "{{ docker_home }}/portainer/config"
+
+# # network
+# portainer_port: "9000"
+# portainer_hostname: "portainer"
+
+# # docker
+# portainer_container_name: "portainer"
+# portainer_image_name: "portainer/portainer-ce"
+# portainer_image_version: "latest"
+
+# # specs
+# portainer_memory: 1g
+
+- name: Create portainer container
+  docker_container:
+    name: portainer
+    image: portainer/portainer-ce
+    state: started
+    recreate: yes
+    restart_policy: always
+    published_ports:
+      - "8000:8000"
+      - "9000:9000"
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - portainer_data:/data
