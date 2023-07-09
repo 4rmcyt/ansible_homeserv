@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Ansible-NAS role tester
+# Ansible-Homelab role tester
 #
 
 # Exit on any individual command failure.

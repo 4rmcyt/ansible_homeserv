@@ -1,6 +1,6 @@
 [all]
 ## Example when running from a remote workstation
-# ansible-homelab ansible_host=192.168.1.100
+ansible-homelab ansible_host=192.168.1.100
 
 ## Example when running directly on your Ansible-NAS server
 # ansible-nas ansible_connection=local ansible_host=localhost
