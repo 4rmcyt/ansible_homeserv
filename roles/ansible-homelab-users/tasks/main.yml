@@ -1,5 +1,5 @@
 ---
-- name: Create ansible-nas group
+- name: Create ansible-homelab group
   ansible.builtin.group:
     name: ansible-homelab
     state: present

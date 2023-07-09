@@ -1,20 +1,17 @@
 ---
-pve_node: proxmox
-pve_guest: homeserver
-domain:
-# Proxmox API credentials
-pve_api_user: root@pam
-pve_api_password: !vault |
-          $ANSIBLE_VAULT;1.1;AES256
-          61646135303635653031333032366235633665636364386439333831643133333639643862353933
-          6664633332663762396138646636613736356361393639370a633737623736663035333232383461
-          66633735343136333536613963653834363239316664336237616364346363366234396166356637
-          3462646563643732380a613532653130323461326532363065383663633731616532623736623233
-          6534
-# VM Volume size (ZFS)
-pve_size: 500
-# VM cores number
-pve_cores: 4
-# VM RAM
-pve_memory: 8
+ansible_homelab_user: zeev
 
+# Where you want to store application data - you'll likely want this backed up or on a ZFS zpool.
+docker_home: /mnt/Volume2/docker
+
+# Where you want Docker to store images
+# Keep this on a fast disk, ideally an SSD. It doesn't need to be backed up.
+docker_image_directory: "/var/lib/docker"
+
+# Docker storage driver, see https://docs.docker.com/storage/storagedriver/select-storage-driver/#supported-backing-filesystems
+# You might want to change this to ZFS, depending on your underlying filesystem.
+docker_storage_driver: overlay2
+
+docker_daemon_json:
+  data-root: "{{ docker_image_directory }}"
+  storage-driver: "{{ docker_storage_driver }}"
