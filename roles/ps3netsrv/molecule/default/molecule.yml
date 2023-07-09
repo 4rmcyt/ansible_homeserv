@@ -3,4 +3,4 @@ provisioner:
   inventory:
     group_vars:
       all:
-        airsonic_enabled: true
+        ps3games_enabled: true

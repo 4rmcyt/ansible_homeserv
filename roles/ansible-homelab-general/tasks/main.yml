@@ -26,7 +26,30 @@
   register: result
   until: result is succeeded
 
-#  - name: Configure smartmontools
+- name: Configure smartmontools
+  block:
+    - name: Set the smartd configuration file path
+      set_fact:
+        smartd_config_path: "/etc/smartd.conf"
+        smartd_file_group: "root"
+        smartd_service_name: "smartd.service"
+
+    - name: Create smartd configuration
+      template:
+        src: smartd.conf.j2
+        dest: "{{ smartd_config_path }}"
+        owner: root
+        group: "{{ smartd_file_group }}"
+        mode: 0644
+        validate: smartd -q onecheck -c %s
+      notify: Restart smartd
+
+    - name: Enable smartd
+      service:
+        name: "{{ smartd_service_name }}"
+        state: started
+        enabled: yes
+  when: always
 
 - name: "Set hostname to {{ ansible_nas_hostname }}"
   ansible.builtin.hostname:

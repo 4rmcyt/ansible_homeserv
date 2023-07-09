@@ -1,0 +1,30 @@
+---
+ps3games_enabled: false
+ps3games_available_externally: false
+
+# directories
+ps3games_games_directory: "{{ docker_home }}/ps3games/"
+ps3games_logs: "{{ docker_home }}/ps3games/logs"
+
+
+# uid / gid
+ps3games_user_id: "38008"
+ps3games_id: "38008"
+
+# If you're paranoid, set permissions to "ro" so Plex won't ever be able to
+# delete your files
+ps3games_games_permissions: "rw"
+
+# network
+ps3games_hostname: "ps3games"
+
+# docker
+ps3games_container_name: "ps3games"
+ps3games_image_name: "ps3games"
+ps3games_image_version: "latest"
+
+# specs
+ps3games_memory: "1g"
+
+
+

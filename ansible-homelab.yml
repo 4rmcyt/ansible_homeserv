@@ -1,0 +1,129 @@
+---
+- name: Ansible-Homelab
+  hosts: all
+
+  roles:
+    ###
+    ### Requirements
+    ###
+    - role: ansible-homelab-users
+      tags:
+        - ansible-homelab-users
+        - ansible-nas
+
+    - role: bertvv.samba
+      tags:
+        - samba
+        - skip_ansible_lint
+
+    ###
+    ### Ansible-homelab Roles
+    ###
+    - role: ansible-homelab-general
+      tags:
+        - ansible-homelab-general
+        - ansible-nas
+
+    - role: ansible-homelab-docker
+      tags:
+        - ansible-homelab-docker
+        - ansible-homelab
+
+    ###
+    ### Containers
+    ###
+    - role: bitwarden
+      tags:
+        - bitwarden
+
+    - role: calibre
+      tags:
+        - calibre
+
+    - role: cloudcmd
+      tags:
+        - cloudcmd
+
+    - role: cloudflare_ddns
+      tags:
+        - cloudflare_ddns
+
+    - role: code-server
+      tags:
+        - code-server
+
+    - role: dashy
+      tags:
+        - dashy
+
+    - role: drone-ci
+      tags:
+        - drone_ci
+
+    - role: gitea
+      tags:
+        - gitea
+
+    - role: healthchecks.io
+      tags:
+        - healthchecks.io
+
+    - role: heimdall
+      tags:
+        - heimdall
+
+    - role: hello_world
+      tags:
+        - hello_world
+
+    - role: homeassistant
+      tags:
+        - homeassistant
+
+    - role: homebridge
+      tags:
+        - homebridge
+
+    - role: jackett
+      tags:
+        - jackett
+
+    - role: komga
+      tags:
+        - komga
+
+    - role: n8n
+      tags:
+        - n8n
+
+    - role: netbootxyz
+      tags:
+        - netbootxyz
+
+    - role: nextcloud
+      tags:
+        - nextcloud
+
+    - role: plex
+      tags:
+        - plex
+
+    - role: portainer
+      tags:
+        - portainer
+
+    - role: traefik
+      tags:
+        - traefik
+
+    - role: transmission-with-wireguard
+      tags:
+        - transmission-with-wireguard
+
+    - role: watchtower
+      tags:
+        - watchtower
+
+    - role: wireshark
+      tags:
+        - wireshark

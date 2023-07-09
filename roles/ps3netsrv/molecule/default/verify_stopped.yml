@@ -6,13 +6,13 @@
     - ansible.builtin.include_vars:
         file: ../../defaults/main.yml
 
-    - name: Try and stop and remove Airsonic
+    - name: Try and stop and remove ps3games
       community.docker.docker_container:
-        name: "{{ airsonic_container_name }}"
+        name: "{{ ps3games_container_name }}"
         state: absent
       register: result
 
-    - name: Check Airsonic is stopped
+    - name: Check if ps3games is stopped
       ansible.builtin.assert:
         that:
           - not result.changed

@@ -6,12 +6,12 @@
     - ansible.builtin.include_vars:
         file: ../../defaults/main.yml
 
-    - name: Get container state
-      community.docker.docker_container_info:
-        name: "{{ airsonic_container_name }}"
+    - name: Get ps3games container state
+      community.docker.docker_container:
+        name: "{{ ps3games_container_name }}"
       register: result
 
-    - name: Check Airsonic is running
+    - name: Check if ps3games containers are running
       ansible.builtin.assert:
         that:
           - result.container['State']['Status'] == "running"

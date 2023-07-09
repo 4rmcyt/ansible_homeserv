@@ -3,7 +3,7 @@ plex_enabled: false
 plex_available_externally: false
 
 # directories
-plex_config_directory: "{{ docker_home }}/media-server/docker-services/plex/config"
+plex_config_directory: "{{ docker_home }}/plex/config"
 plex_logs: "{{ docker_home }}/plex/logs"
 plex_movies_directory: "{{ movies_root }}"
 plex_tv_directory: "{{ tv_root }}"

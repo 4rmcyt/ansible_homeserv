@@ -1,0 +1,39 @@
+---
+- name: Start ps3games
+  block:
+    - name: Create ps3games Directories
+      ansible.builtin.file:
+        path: "{{ ps3games_games_directory }}"
+        state: directory
+
+    - name: Create ps3games Docker Container
+      community.docker.docker_container:
+        name: "{{ ps3games_container_name }}"
+        image: "{{ ps3games_image_name }}:{{ ps3games_image_version }}"
+        pull: true
+        volumes:
+          - "{{ ps3games_games_directory }}:/games:rw"
+        network_mode: "host"
+        env:
+          TZ: "{{ ansible_nas_timezone }}"
+          PUID: "{{ ps3games_user_id }}"
+          PGID: "{{ ps3games_group_id }}"
+          VERSION: "{{ ps3games_version }}"
+        restart_policy: unless-stopped
+        memory: "{{ ps3games_memory }}"
+        labels:
+          traefik.enable: "{{ ps3games_available_externally | string }}"
+          traefik.http.routers.ps3games.rule: "Host(`{{ ps3games_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.ps3games.tls.certresolver: "letsencrypt"
+          traefik.http.routers.ps3games.tls.domains[0].main: "{{ ansible_nas_domain }}"
+          traefik.http.routers.ps3games.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.services.ps3games.loadbalancer.server.port: "38008"
+  when: ps3games_enabled is true
+
+- name: Stop ps3games
+  block:
+    - name: Stop ps3games
+      community.docker.docker_container:
+        name: "{{ ps3games_container_name }}"
+        state: absent
+  when: ps3games_enabled is false

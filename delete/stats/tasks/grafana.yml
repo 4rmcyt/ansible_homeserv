@@ -17,13 +17,13 @@
 
     - name: Template Grafana data source
       ansible.builtin.template:
-        src: datasources/ansible-Ansible-Homelab.yml
-        dest: "{{ stats_grafana_config_directory }}/provisioning/datasources/ansible-Ansible-Homelab.yml"
+        src: datasources/ansible-ansible-homelab.yml
+        dest: "{{ stats_grafana_config_directory }}/provisioning/datasources/ansible-ansible-homelab.yml"
 
     - name: Copy Grafana dashboards configuration
       ansible.builtin.copy:
-        src: dashboards/ansible-Ansible-Homelab.yml
-        dest: "{{ stats_grafana_config_directory }}/provisioning/dashboards/ansible-Ansible-Homelab.yml"
+        src: dashboards/ansible-ansible-homelab.yml
+        dest: "{{ stats_grafana_config_directory }}/provisioning/dashboards/ansible-ansible-homelab.yml"
 
     - name: Copy Grafana Ansible-NAS dashboard
       ansible.builtin.copy:
