@@ -1,6 +1,6 @@
 ---
 # Sets the hostname of your Ansible NAS
-ansible_nas_hostname: pve_node
+ansible_nas_hostname: homeserver
 
 # Update all apt packages when playbook is run
 keep_packages_updated: true
