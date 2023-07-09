@@ -8,6 +8,7 @@
     ###
     - role: ansible-homelab-users
       tags:
+        - ansible-homelab-pve_create_vm
         - ansible-homelab-users
         - ansible-nas
 

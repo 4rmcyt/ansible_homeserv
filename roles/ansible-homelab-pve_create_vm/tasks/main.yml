@@ -8,7 +8,6 @@
         seconds: 5
 
   tasks:
-
     - name: "Install python-proxmoxer"
       ansible.builtin.pip:
         name: proxmoxer
@@ -60,7 +59,7 @@
 
     - name: "Get next VM ID"
       command: >
-        python -c 'from proxmoxer import ProxmoxAPI; print ProxmoxAPI(
+        python3 -c 'from proxmoxer import ProxmoxAPI; print ProxmoxAPI(
                 "{{ pve_node }}.{{ domain }}", user="{{ pve_api_user }}",
                 password="{{ pve_api_password }}").cluster.nextid.get();'
       check_mode: False
@@ -75,7 +74,7 @@
         name: "zpool1/vm-{{ pve_vmid }}-disk-1"
         state: present
         # TODO: use 'zfs_extra_properties' once switched to Ansible 2.5
-        volsize: '{{ pve_size|d("30G") }}'
+        volsize: '{{ pve_size|d("500G") }}'
 
     - name: "Create VM {{ pve_guest }}"
       proxmox_kvm:
