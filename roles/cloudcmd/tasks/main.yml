@@ -26,10 +26,10 @@
         memory: "{{ cloudcmd_memory }}"
         labels:
           traefik.enable: "{{ cloudcmd_available_externally | string }}"
-          traefik.http.routers.cloudcmd.rule: "Host(`{{ cloudcmd_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.cloudcmd.rule: "Host(`{{ cloudcmd_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.cloudcmd.tls.certresolver: "letsencrypt"
-          traefik.http.routers.cloudcmd.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.cloudcmd.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.cloudcmd.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.cloudcmd.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.cloudcmd.loadbalancer.server.port: "8000"
   when: cloudcmd_enabled is true
 

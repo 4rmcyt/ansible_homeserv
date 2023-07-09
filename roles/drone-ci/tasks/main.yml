@@ -40,10 +40,10 @@
         memory: "{{ drone_ci_memory }}"
         labels:
           traefik.enable: "{{ drone_ci_available_externally | string }}"
-          traefik.http.routers.drone_ci.rule: "Host(`{{ drone_ci_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.drone_ci.rule: "Host(`{{ drone_ci_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.drone_ci.tls.certresolver: "letsencrypt"
-          traefik.http.routers.drone_ci.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.drone_ci.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.drone_ci.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.drone_ci.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.drone_ci.loadbalancer.server.port: "80"
 
     - name: Create Drone-CI Runner container

@@ -52,10 +52,10 @@
         memory: "{{ transmission_openvpn_memory }}"
         labels:
           traefik.enable: "{{ transmission_with_openvpn_available_externally | string }}"
-          traefik.http.routers.transmission_openvpn.rule: "Host(`{{ transmission_openvpn_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.transmission_openvpn.rule: "Host(`{{ transmission_openvpn_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.transmission_openvpn.tls.certresolver: "letsencrypt"
-          traefik.http.routers.transmission_openvpn.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.transmission_openvpn.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.transmission_openvpn.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.transmission_openvpn.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.transmission_openvpn.loadbalancer.server.port: "9091"
   when: transmission_with_openvpn_enabled is true
 

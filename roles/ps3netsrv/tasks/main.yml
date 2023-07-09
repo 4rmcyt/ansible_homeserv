@@ -23,10 +23,10 @@
         memory: "{{ ps3games_memory }}"
         labels:
           traefik.enable: "{{ ps3games_available_externally | string }}"
-          traefik.http.routers.ps3games.rule: "Host(`{{ ps3games_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.ps3games.rule: "Host(`{{ ps3games_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.ps3games.tls.certresolver: "letsencrypt"
-          traefik.http.routers.ps3games.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.ps3games.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.ps3games.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.ps3games.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.ps3games.loadbalancer.server.port: "38008"
   when: ps3games_enabled is true
 

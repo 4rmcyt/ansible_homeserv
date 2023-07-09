@@ -12,9 +12,9 @@
         certResolver = "letsencrypt"
 
         [entryPoints.websecure.http.tls.domains]
-          main = "{{ ansible_nas_domain }}"
+          main = "{{ ansible_homelab_domain }}"
           sans = [
-            "*.{{ ansible_nas_domain }}"
+            "*.{{ ansible_homelab_domain }}"
           ]
 
   [entryPoints.traefik]

@@ -24,10 +24,10 @@
         memory: "{{ jackett_memory }}"
         labels:
           traefik.enable: "{{ jackett_available_externally | string }}"
-          traefik.http.routers.jackett.rule: "Host(`{{ jackett_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.jackett.rule: "Host(`{{ jackett_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.jackett.tls.certresolver: "letsencrypt"
-          traefik.http.routers.jackett.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.jackett.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.jackett.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.jackett.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.jackett.loadbalancer.server.port: "9117"
   when: jackett_enabled is true
 

@@ -12,10 +12,10 @@
         memory: "{{ dashy_memory }}"
         labels:
           traefik.enable: "{{ dashy_available_externally | string }}"
-          traefik.http.routers.dashy.rule: "Host(`{{ dashy_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.dashy.rule: "Host(`{{ dashy_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.dashy.tls.certresolver: "letsencrypt"
-          traefik.http.routers.dashy.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.dashy.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.dashy.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.dashy.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.dashy.loadbalancer.server.port: "80"
   when: dashy_enabled is true
 

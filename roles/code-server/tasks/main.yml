@@ -20,10 +20,10 @@
         memory: "{{ code_server_memory }}"
         labels:
           traefik.enable: "{{ code_server_available_externally | string }}"
-          traefik.http.routers.code_server.rule: "Host(`{{ code_server_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.code_server.rule: "Host(`{{ code_server_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.code_server.tls.certresolver: "letsencrypt"
-          traefik.http.routers.code_server.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.code_server.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.code_server.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.code_server.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.code_server.loadbalancer.server.port: "8443"
   when: code_server_enabled is true
 

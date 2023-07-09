@@ -21,10 +21,10 @@
         memory: "{{ hello_world_memory }}"
         labels:
           traefik.enable: "{{ hello_world_available_externally | string }}"
-          traefik.http.routers.hello_world.rule: "Host(`{{ hello_world_hostname }}.{{ ansible_nas_domain }}`)"
+          traefik.http.routers.hello_world.rule: "Host(`{{ hello_world_hostname }}.{{ ansible_homelab_domain }}`)"
           traefik.http.routers.hello_world.tls.certresolver: "letsencrypt"
-          traefik.http.routers.hello_world.tls.domains[0].main: "{{ ansible_nas_domain }}"
-          traefik.http.routers.hello_world.tls.domains[0].sans: "*.{{ ansible_nas_domain }}"
+          traefik.http.routers.hello_world.tls.domains[0].main: "{{ ansible_homelab_domain }}"
+          traefik.http.routers.hello_world.tls.domains[0].sans: "*.{{ ansible_homelab_domain }}"
           traefik.http.services.hello_world.loadbalancer.server.port: "4040"
   when: hello_world_enabled is true
 
