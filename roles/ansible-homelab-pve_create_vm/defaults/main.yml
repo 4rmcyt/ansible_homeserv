@@ -1,5 +1,5 @@
 ---
-pve_node: proxmox
+pve_node: 192.168.1.100
 pve_guest: homeserver
 domain:
 # Proxmox API credentials

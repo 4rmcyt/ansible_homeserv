@@ -6,10 +6,15 @@
     ###
     ### Requirements
     ###
-    - role: ansible-homelab-users
+
+    - role: ansible-homelab-pve_create_vm
       tags:
         - ansible-homelab-pve_create_vm
+
+    - role: ansible-homelab-users
+      tags:
         - ansible-homelab-users
+        - ansible-homelab
 
 
     - role: bertvv.samba
