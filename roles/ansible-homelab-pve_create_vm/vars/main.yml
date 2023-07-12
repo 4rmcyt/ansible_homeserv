@@ -1,0 +1,4 @@
+---
+dist_netboot:
+  debian-bookworm:
+    url: http://ftp.debian.org/debian/dists/Debian12.0/main/installer-amd64/current/images/netboot/netboot.tar.gz
